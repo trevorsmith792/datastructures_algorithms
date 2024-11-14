@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string reverse_string(const string& s) {
+    string reversed = s;  // Copy the string
+    int left = 0, right = reversed.length() - 1;
+    
+    // Swap characters from the two ends until reaching the middle
+    while (left < right) {
+        swap(reversed[left], reversed[right]);
+        left++;
+        right--;
+    }
+    return reversed;
+}
+
+int main() {
+    string input = "hello";
+    cout << "Reversed string: " << reverse_string(input) << endl;  // Output: "olleh"
+    return 0;
+}
+
