@@ -1,0 +1,18 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>  // for std::max
+using namespace std;
+
+int find_largest_number(const vector<int>& arr) {
+    int largest = arr[0];  // Assume the first element is the largest
+    for (int num : arr) {
+        largest = max(largest, num);  // Update largest if a larger number is found
+    }
+    return largest;
+}
+
+int main() {
+    vector<int> arr = {3, 5, 7, 2, 8, 4};
+    cout << "Largest number: " << find_largest_number(arr) << endl;  // Output: 8
+    return 0;
+}
