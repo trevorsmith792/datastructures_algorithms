@@ -93,7 +93,31 @@ def shell_sort(arr):
             arr[j] = temp    # Insert the current element into its correct position
         gap //= 2            # Reduce the gap for the next iteration
 
-    
+def counting_sort(arr, exp):
+    n = len(arr)
+    output = [0] * n                # Output array that will hold sorted numbers
+    count = [0] * 10                # Count array to store the frequency of digits (0-9)
+    for i in range(n):              # Store the count of occurrences of (arr[i] // exp) % 10 in count[]
+        index = (arr[i] // exp) % 10
+        count[index] += 1
+    for i in range(1, 10):          # Change count[i] to contain  position of this digit in output[]
+        count[i] += count[i - 1]
+    i = n - 1                       # Create output array, placing elements in their sorted position
+    while i >= 0:
+        index = (arr[i] // exp) % 10
+        output[count[index] - 1] = arr[i]
+        count[index] -= 1
+        i -= 1
+    for i in range(n):              # Copy the sorted elements back into the original array
+        arr[i] = output[i]
+
+
+def radix_sort(arr):                # Radix Sort: Main function to perform radix sort
+    max_num = max(arr)              # Find the maximum number to determine the number of digits
+    exp = 1                         # Initialize exponent (1's, 10's, 100's, etc.)
+    while max_num // exp > 0:
+        counting_sort(arr, exp)     # Sort by current digit
+        exp *= 10                   # Move to the next digit
 
 if __name__ == "__main__":
     arr = [1,9,2,8,3,7,4,7,4,6,5,0]
