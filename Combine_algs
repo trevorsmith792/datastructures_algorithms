@@ -119,6 +119,28 @@ def radix_sort(arr):                # Radix Sort: Main function to perform radix
         counting_sort(arr, exp)     # Sort by current digit
         exp *= 10                   # Move to the next digit
 
+def counting_sort(arr):
+    # Step 1: Find the maximum value in the input array to define the range
+    max_val = max(arr) if arr else 0  # Find the maximum value in the array
+    # Step 2: Initialize the count array with 0s for each value in the range [0, max_val]
+    count = [0] * (max_val + 1)
+    # Step 3: Count the occurrences of each element in the input array
+    for num in arr:
+        count[num] += 1
+    # Step 4: Modify the count array to be cumulative (running total)
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    # Step 5: Build the output array using the count array to place elements in sorted order
+    output = [0] * len(arr)  # Output array for sorted elements
+    for num in reversed(arr):  # Traverse input array from end to ensure stability
+        output[count[num] - 1] = num  # Place element at correct position
+        count[num] -= 1  # Decrease the count of the element
+    # Step 6: Copy the sorted elements back to the original array
+    for i in range(len(arr)):
+        arr[i] = output[i]
+    return arr
+
+
 if __name__ == "__main__":
     arr = [1,9,2,8,3,7,4,7,4,6,5,0]
     arr_dec = [.1,.9,.2,.8,.3,.7,.4,.7,.4,.6,.5,.0]
@@ -129,6 +151,7 @@ if __name__ == "__main__":
     #heap_sort(arr)
     #sorrted_arr = bucket_sort(arr_dec)
     #sorted_arr = merge_sort(arr)
+    #sorted_arr = counting_sort(arr)
     shell_sort(arr)
     print(arr)
     #print(sorted_arr)
