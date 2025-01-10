@@ -1,0 +1,23 @@
+# Graph is represented as an adjacency list
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C']
+}
+
+# DFS function using recursion
+def dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()  # Initialize an empty set to track visited nodes
+    visited.add(node)  # Mark the node as visited
+    print(node)  # Process the current node (print or other operations)
+    
+    for neighbor in graph[node]:
+        if neighbor not in visited:  # If the neighbor hasn't been visited
+            dfs(graph, neighbor, visited)  # Recursively visit the neighbor
+            
+# Start DFS from node 'A'
+dfs(graph, 'A')
